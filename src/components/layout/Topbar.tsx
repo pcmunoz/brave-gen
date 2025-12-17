@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 
-import { settingsOrganizationMenu } from '../../constants/menu'
+import { allSettingsMenu } from '../../constants/menu'
+import { capitalizeFirstLetter } from '../../helpers/common'
 import useActiveLocation from '../../hooks/useActiveLocation'
 import { CompanyDropdown } from '../../pages/settings/integrations/CompanyDropdown'
 import TopbarRight from './TopbarRight'
@@ -16,11 +17,18 @@ const TopBar: React.FC = () => {
             <div className="flex items-center gap-1">
                 {currentPath && (
                     <FontAwesomeIcon
-                        icon={settingsOrganizationMenu[currentPath].icon}
+                        icon={allSettingsMenu[currentPath]?.icon}
                         className="text-black"
                     />
                 )}
-                <h1 className="text-black font-bold">{currentPage}</h1>
+                <h1 className="text-black font-bold">
+                    {currentPage.includes('-')
+                        ? currentPage
+                              .split('-')
+                              .map((each) => capitalizeFirstLetter(each))
+                              .join(' ')
+                        : currentPage}
+                </h1>
             </div>
 
             <TopbarRight />

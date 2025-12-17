@@ -1,31 +1,30 @@
 import React from 'react'
 
 import { sidebarMenu, sidebarMenuSetting } from '../../constants/menu'
-import type { MenuType } from './FullLayout'
+import useActiveLocation from '../../hooks/useActiveLocation'
 import SidebarItem from './SidebarItem'
 
-interface SidebarProps {
-    activeMenu: MenuType
-    handleActiveMenu: (value: MenuType) => void
-}
+interface SidebarProps {}
 
-const Sidebar: React.FC<SidebarProps> = ({ activeMenu, handleActiveMenu }) => {
+const Sidebar: React.FC<SidebarProps> = ({}) => {
+    const { parentPath, currentPath } = useActiveLocation()
+    const activeMenu = parentPath === '' ? currentPath : parentPath
+
     return (
         <aside className="w-20 h-screen bg-slate-950 border-r border-slate-800 flex flex-col items-center py-6 z-50 shrink-0">
             <div className="text-indigo-500 text-2xl mb-10">
-                <img src="/images/Logo.png" />
+                <a href="/">
+                    <img src="/images/Logo.png" />
+                </a>
             </div>
 
             <nav className="flex-1 flex flex-col justify-center gap-1 w-full items-center">
                 {Object.values(sidebarMenu).map((each) => {
-                    const handleSidebarItemClick = () => handleActiveMenu(each.link as MenuType)
                     return (
                         <SidebarItem
+                            {...each}
                             key={each.link}
-                            icon={each.icon}
                             active={activeMenu === each.link}
-                            handleSidebarItemClick={handleSidebarItemClick}
-                            label={each.label}
                         />
                     )
                 })}
@@ -34,10 +33,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeMenu, handleActiveMenu }) => {
                 <SidebarItem
                     icon={sidebarMenuSetting.icon}
                     active={activeMenu === sidebarMenuSetting.link}
-                    handleSidebarItemClick={() =>
-                        handleActiveMenu(sidebarMenuSetting.link as MenuType)
-                    }
                     label={sidebarMenuSetting.label}
+                    link={sidebarMenuSetting.link}
                 />
             </div>
         </aside>

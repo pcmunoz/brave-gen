@@ -55,7 +55,14 @@ export const settingsCarbonMenu: StringKeyMenu = {
 }
 
 export const settingsDisplaysMenu: StringKeyMenu = {
-    manage: { label: 'Manage', icon: faDisplay, link: 'manage' }
+    'manage-display': { label: 'Manage', icon: faDisplay, link: 'manage-display' }
+}
+
+export const allSettingsMenu = {
+    ...settingsOrganizationMenu,
+    ...settingsUtilitiesMenu,
+    ...settingsCarbonMenu,
+    ...settingsDisplaysMenu
 }
 
 export const sidebarMenu: StringKeyMenu = {
