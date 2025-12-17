@@ -1,5 +1,11 @@
+import FullLayout from '../../../components/layout/FullLayout'
+
 const Tags = () => {
-    return <div>Tags</div>
+    return (
+        <FullLayout>
+            <div>Tags</div>
+        </FullLayout>
+    )
 }
 
 export default Tags
